@@ -2,22 +2,21 @@
 #include <ArduinoJson.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
-//#include <vector>
 
 // Wifi network station credentials
 #define WIFI_SSID "Wokwi-GUEST"
 #define WIFI_PASSWORD ""
 
 // Telegram BOT Token
-#define BOT_TOKEN "8293542075:AAEXyHq-2Bhrw5lYAtFWf6DlqqNWJA3p7D8"
-#define CHAT_ID "8317542821"
+#define BOT_TOKEN "CHAVE_API"
+#define CHAT_ID "SEU_ID"
 
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
 
 String buffer;
 
-char ipServer[] = "192.168.0.78";
+char ipServer[] = SEU_IP_PRIVADO;
 
 char alert[] = "Mensagem de teste";
 char botao[] = "Botão pressionado";
