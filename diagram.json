@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "author": "Kneeshe",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -187.3, "left": -139.4, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -70.6,
+      "left": 28.8,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": -208.8,
+      "left": 21,
+      "attrs": { "volume": "0.1" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "r3:1", "led4:A", "green", [ "v0" ] ],
+    [ "led4:C", "esp:GND.1", "green", [ "v138.64", "h-88.39", "v102.35", "h600.84", "v-182.05" ] ],
+    [ "r3:2", "esp:D2", "green", [ "v99.14", "h278.51", "v-37.5" ] ],
+    [ "btn1:1.l", "esp:D2", "green", [ "h0" ] ],
+    [ "btn1:2.r", "esp:GND.1", "green", [ "v29", "h-67", "v-28.7" ] ],
+    [ "bz1:1", "esp:GND.1", "green", [ "h-38.4", "v86.5" ] ],
+    [ "bz1:2", "esp:D4", "green", [ "h-29.2", "v57.5" ] ]
+  ],
+  "dependencies": {}
+}
