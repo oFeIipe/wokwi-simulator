@@ -4,7 +4,7 @@
   "editor": "wokwi",
   "parts": [
     { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -187.3, "left": -149, "attrs": {} },
-    { "type": "chip-gps-neo6m", "id": "chip1", "top": -306.18, "left": -110.4, "attrs": {} },
+    { "type": "chip-gps-neo6m", "id": "chip1", "top": -144, "left": -288, "attrs": {} },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
@@ -18,13 +18,6 @@
       "top": -208.8,
       "left": 21,
       "attrs": { "volume": "0.1" }
-    },
-    {
-      "type": "wokwi-led",
-      "id": "led1",
-      "top": -157.2,
-      "left": -44.2,
-      "attrs": { "color": "red" }
     }
   ],
   "connections": [
@@ -40,9 +33,7 @@
     [ "chip1:RX", "esp:TX0", "green", [ "v0" ] ],
     [ "chip1:TX", "esp:RX0", "green", [ "h21.01", "v163.2", "h-9.6" ] ],
     [ "chip1:GND", "esp:GND.2", "black", [ "h-86.4", "v249.6", "h19.2" ] ],
-    [ "chip1:VCC", "esp:VIN", "red", [ "h-105.6", "v278.4" ] ],
-    [ "led1:C", "esp:D18", "green", [ "v0" ] ],
-    [ "led1:A", "btn1:1.l", "green", [ "v0" ] ]
+    [ "chip1:VCC", "esp:VIN", "red", [ "h-105.6", "v278.4" ] ]
   ],
   "dependencies": {}
 }

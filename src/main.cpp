@@ -6,19 +6,20 @@
 
 using namespace std;
 
+#define TAMANHO_MATRIZ 4
+
 #define WIFI_SSID "Wokwi-GUEST"
 #define WIFI_PASSWORD ""
 
 // Telegram BOT Token
 #define BOT_TOKEN "8293542075:AAEXyHq-2Bhrw5lYAtFWf6DlqqNWJA3p7D8"
 #define CHAT_ID "8317542821"
-#define TAMANHO_MATRIZ 5
 
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
 TinyGPSPlus gps;
-
 String buffer;
+
 char ipServer[] = "192.168.0.78";
 char alert[] = "Mensagem de teste";
 char botao[] = "Botão pressionado";
@@ -26,10 +27,10 @@ char request[] = "Mensagem vinda de requisição do servidor";
 int i = 0;
 
 double rota[][TAMANHO_MATRIZ] = {
-  {-21.208411441155967, -47.785964906215675},
-  {-21.20765127355529, -47.786847352981574},
-  {-21.208784021873214, -47.787220180034645},
-  {-21.218760833638278, -47.79200792312623},
+  {-47.78748035430909, -21.20823890345836},
+  {-47.78599441051483, -21.20858397865198},
+  {-47.78641283512116, -21.207608764067334},
+  {-47.78758764266968, -21.20796884404864},
 };
 
 const int ledPin = 18;
@@ -83,15 +84,10 @@ void ativarSafeway(char *message){
   bot.sendMessage(CHAT_ID, message, "");
 }
 
-void printDistance(double distancia_entre_pontos){
-  Serial.printf("Distância entre os dois pontos %f\n", distancia_entre_pontos);
-  delay(2000);
-}
-
 String latLongToJson(double* coordinates){
   StaticJsonDocument<200> geoLatLong;
-  geoLatLong["lat"] = coordinates[0];
-  geoLatLong["lon"] = coordinates[1];
+  geoLatLong["lon"] = coordinates[0];
+  geoLatLong["lat"] = coordinates[1];
   
   String jsonString = ""; 
   serializeJson(geoLatLong, jsonString);
