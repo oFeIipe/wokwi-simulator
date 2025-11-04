@@ -12,15 +12,15 @@ using namespace std;
 #define WIFI_PASSWORD ""
 
 // Telegram BOT Token
-#define BOT_TOKEN "8293542075:AAEXyHq-2Bhrw5lYAtFWf6DlqqNWJA3p7D8"
-#define CHAT_ID "8317542821"
+#define BOT_TOKEN ""
+#define CHAT_ID ""
 
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
 TinyGPSPlus gps;
 String buffer;
 
-char ipServer[] = "192.168.0.78";
+char ipServer[] = "";
 char alert[] = "Mensagem de teste";
 char botao[] = "Botão pressionado";
 char request[] = "Mensagem vinda de requisição do servidor";
