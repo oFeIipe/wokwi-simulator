@@ -80,7 +80,8 @@ void setup() {
 }
 
 void ativarSafeway(char *message){
-  tone(buzzer, 262, 3000);
+  // tone(buzzer, 262, 3000); - antiga declaração para iniciar o buzzer
+  alarme(); // função que faz com que o buzzer emita um som como SOS
   bot.sendMessage(CHAT_ID, message, "");
 }
 
@@ -127,4 +128,37 @@ void loop() {
   buffer = "";
   
   delay(2000);
+}
+
+
+// função para que o buzzer toque um som como o SOS
+void alarme() {
+  for (int i = 0; i < 3; i++) {
+    ponto();
+    delay(1000);
+  }
+
+  for (int i = 0; i < 3; i++) {
+    traco();
+    delay(1000);
+  }
+
+  for (int i = 0; i < 3; i++) {
+    ponto();
+    delay(1000);
+  }
+}
+
+// som de ponto
+void ponto() {
+  tone(buzzer, 1000);
+  delay(100);
+  noTone(buzzer);
+}
+
+// som de traço
+void traco() {
+  tone(buzzer, 1000);
+  delay(300);
+  noTone(buzzer);
 }
