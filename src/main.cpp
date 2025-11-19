@@ -2,7 +2,6 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
-#include <TinyGPSPlus.h>
 
 using namespace std;
 
@@ -17,13 +16,11 @@ using namespace std;
 
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
-TinyGPSPlus gps;
 String buffer;
 
 char ipServer[] = "";
-char alert[] = "Mensagem de teste";
-char botao[] = "Botão pressionado";
-char request[] = "Mensagem vinda de requisição do servidor";
+char botao[] = "SAFEWAY ativado por botão";
+char request[] = "SAFEWAY ativado por localização";
 int i = 0;
 
 double rota[][TAMANHO_MATRIZ] = {
@@ -33,7 +30,8 @@ double rota[][TAMANHO_MATRIZ] = {
   {-47.78758764266968, -21.20796884404864},
 };
 
-const int ledPin = 18;
+const int redLed = 13;
+const int greenLed = 12;
 const int buttonPin = 2;
 const int buzzer = 4;
 const int port = 8081;
@@ -76,12 +74,56 @@ void setup() {
 
   pinMode(buttonPin, INPUT_PULLUP);
   pinMode(buzzer, OUTPUT);
-  pinMode(ledPin, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(greenLed,OUTPUT);
+
+  digitalWrite(greenLed, HIGH);
+  digitalWrite(redLed, LOW);
 }
 
+// som de ponto
+void ponto() {
+  digitalWrite(redLed, HIGH);
+  tone(buzzer, 1000);
+  delay(100);
+
+  noTone(buzzer);
+  digitalWrite(redLed, LOW);
+}
+
+// som de traço
+void traco() {
+  digitalWrite(redLed, HIGH);
+  tone(buzzer, 1000);
+  delay(300);
+
+  noTone(buzzer);
+  digitalWrite(redLed, LOW);
+}
+
+// função para que o buzzer toque um som como o SOS
+void alarme() {
+  digitalWrite(greenLed, LOW);
+  for (int i = 0; i < 3; i++) {
+    ponto();
+    delay(1000);
+  }
+
+  for (int i = 0; i < 3; i++) {
+    traco();
+    delay(1000);
+  }
+
+  for (int i = 0; i < 3; i++) {
+    ponto();
+    delay(1000);
+  }
+  digitalWrite(greenLed, HIGH);
+}
+
+
 void ativarSafeway(char *message){
-  // tone(buzzer, 262, 3000); - antiga declaração para iniciar o buzzer
-  alarme(); // função que faz com que o buzzer emita um som como SOS
+  alarme();
   bot.sendMessage(CHAT_ID, message, "");
 }
 
@@ -120,7 +162,6 @@ void loop() {
   
   if (lastButtonState == HIGH && currentButtonState == LOW) {
     Serial.println("Botão pressionado! Enviando mensagem...");
-    digitalWrite(ledPin, HIGH);
     ativarSafeway(botao);
   }
   
@@ -128,37 +169,4 @@ void loop() {
   buffer = "";
   
   delay(2000);
-}
-
-
-// função para que o buzzer toque um som como o SOS
-void alarme() {
-  for (int i = 0; i < 3; i++) {
-    ponto();
-    delay(1000);
-  }
-
-  for (int i = 0; i < 3; i++) {
-    traco();
-    delay(1000);
-  }
-
-  for (int i = 0; i < 3; i++) {
-    ponto();
-    delay(1000);
-  }
-}
-
-// som de ponto
-void ponto() {
-  tone(buzzer, 1000);
-  delay(100);
-  noTone(buzzer);
-}
-
-// som de traço
-void traco() {
-  tone(buzzer, 1000);
-  delay(300);
-  noTone(buzzer);
 }
