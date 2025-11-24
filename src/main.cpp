@@ -11,13 +11,15 @@ using namespace std;
 #define WIFI_PASSWORD ""
 
 // Telegram BOT Token
-#define BOT_TOKEN ""
+#define BOT_TOKEN "8293542075:AAEXyHq-2Bhrw5lYAtFWf6DlqqNWJA3p7D8"
+// Seu chat id
 #define CHAT_ID ""
 
 WiFiClientSecure secured_client;
 UniversalTelegramBot bot(BOT_TOKEN, secured_client);
 String buffer;
 
+// Seu IP local
 char ipServer[] = "";
 char botao[] = "SAFEWAY ativado por botão";
 char request[] = "SAFEWAY ativado por localização";
@@ -32,10 +34,11 @@ double rota[][TAMANHO_MATRIZ] = {
 
 const int redLed = 13;
 const int greenLed = 12;
-const int buttonPin = 2;
+const int sw1 = 2;
+const int sw2 = 5;
 const int buzzer = 4;
 const int port = 8081;
-int lastButtonState = HIGH;
+
 
 WiFiClient client;
 
@@ -72,11 +75,11 @@ void setup() {
     printf("Conectado ao servidor Express\n");
   }
 
-  pinMode(buttonPin, INPUT_PULLUP);
+  pinMode(sw1, INPUT_PULLUP);
+  pinMode(sw2, INPUT_PULLUP);
   pinMode(buzzer, OUTPUT);
   pinMode(redLed, OUTPUT);
   pinMode(greenLed,OUTPUT);
-
   digitalWrite(greenLed, HIGH);
   digitalWrite(redLed, LOW);
 }
@@ -138,7 +141,7 @@ String latLongToJson(double* coordinates){
 }
 
 void loop() {
-  int currentButtonState = digitalRead(buttonPin);
+
   
   if(client.available()){
     buffer = client.readString();
@@ -160,12 +163,11 @@ void loop() {
     ativarSafeway(request);
   }
   
-  if (lastButtonState == HIGH && currentButtonState == LOW) {
-    Serial.println("Botão pressionado! Enviando mensagem...");
+  if (digitalRead(sw1) == LOW && digitalRead(sw2) == LOW) {
+    Serial.println("Botões pressionados! Enviando mensagem...");
     ativarSafeway(botao);
   }
   
-  lastButtonState = currentButtonState;
   buffer = "";
   
   delay(2000);
