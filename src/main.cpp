@@ -11,7 +11,7 @@ using namespace std;
 #define WIFI_PASSWORD ""
 
 // Telegram BOT Token
-#define BOT_TOKEN "8293542075:AAEXyHq-2Bhrw5lYAtFWf6DlqqNWJA3p7D8"
+#define BOT_TOKEN ""
 // Seu chat id
 #define CHAT_ID ""
 
